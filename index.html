@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laberinto Algebraico</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main id="app">
+
+    <!-- =========================
+         PANTALLA DE INICIO
+    ========================== -->
+    <section id="pantalla-inicio" class="pantalla activa">
+
+      <div class="hero-card">
+
+        <div class="brand-mark">x²</div>
+
+        <p class="eyebrow">JUEGO EDUCATIVO</p>
+
+        <h1>Laberinto Algebraico</h1>
+
+        <h2>El desafío de las expresiones</h2>
+
+        <p>
+          Recorre el tablero, resuelve expresiones algebraicas
+          y consigue al menos 5 puntos antes de llegar a la META.
+        </p>
+
+        <button id="btn-jugar" class="btn btn-primary">
+          JUGAR
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONFIGURACIÓN
+    ========================== -->
+    <section id="pantalla-config" class="pantalla">
+
+      <div class="panel config-panel">
+
+        <p class="eyebrow">PREPARACIÓN</p>
+
+        <h2>Configura la partida</h2>
+
+        <label for="num-jugadores">
+          Número de jugadores
+        </label>
+
+        <div
+          id="num-jugadores"
+          class="player-counts"
+          role="group"
+          aria-label="Número de jugadores"
+        >
+
+          <button class="count-btn" data-count="4">
+            4
+          </button>
+
+          <button class="count-btn selected" data-count="5">
+            5
+          </button>
+
+          <button class="count-btn" data-count="6">
+            6
+          </button>
+
+        </div>
+
+        <div id="nombres-jugadores" class="names-grid"></div>
+
+        <p id="config-error" class="error-text"></p>
+
+        <button id="btn-comenzar" class="btn btn-primary">
+          COMENZAR
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PANTALLA DEL JUEGO
+    ========================== -->
+    <section id="pantalla-juego" class="pantalla">
+
+      <header class="game-header">
+
+        <div>
+
+          <p class="eyebrow">
+            LABERINTO ALGEBRAICO
+          </p>
+
+          <h2>
+            El desafío de las expresiones
+          </h2>
+
+        </div>
+
+        <button
+          id="btn-reiniciar-top"
+          class="btn btn-secondary small"
+        >
+          Nueva partida
+        </button>
+
+      </header>
+
+
+      <div class="game-layout">
+
+        <!-- PANEL LATERAL -->
+        <aside class="sidebar">
+
+          <!-- TURNO -->
+          <div class="turn-card">
+
+            <span>Turno de</span>
+
+            <strong id="jugador-actual">
+              —
+            </strong>
+
+            <div id="dado-visual" class="dice">
+              ?
+            </div>
+
+            <p id="resultado-dado">
+              Lanza el dado para avanzar.
+            </p>
+
+            <button id="btn-dado" class="btn btn-dice">
+              LANZAR DADO
+            </button>
+
+          </div>
+
+
+          <!-- MARCADOR -->
+          <div class="scores-card">
+
+            <h3>
+              Puntuaciones
+            </h3>
+
+            <div id="marcador"></div>
+
+          </div>
+
+
+          <!-- LEYENDA -->
+          <div class="legend-card">
+
+            <h3>
+              Leyenda
+            </h3>
+
+            <div class="legend-item">
+              <span class="legend-dot identifica"></span>
+              Identifica
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot suma"></span>
+              Suma
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot resta"></span>
+              Resta
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot multiplicacion"></span>
+              Multiplicación
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot division"></span>
+              División
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot sustituye"></span>
+              Sustituye y compara
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot desafio">★</span>
+              Desafío
+            </div>
+
+            <div class="legend-item">
+              <span class="legend-dot comodin">🃏</span>
+              Comodín
+            </div>
+
+          </div>
+
+        </aside>
+
+
+        <!-- TABLERO -->
+        <section class="board-area">
+
+          <div class="board-wrap">
+
+            <div
+              id="tablero"
+              class="board"
+              aria-label="Tablero del juego"
+            ></div>
+
+          </div>
+
+          <div class="board-tip">
+
+            <strong>Objetivo:</strong>
+            llega a META con
+            <strong>5 puntos o más</strong>.
+
+            Resuelve bien para obtener ventajas.
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PANTALLA DE RETO
+    ========================== -->
+    <section
+      id="pantalla-reto"
+      class="pantalla modal-screen"
+    >
+
+      <div class="challenge-card">
+
+        <div class="challenge-top">
+
+          <span
+            id="reto-tipo"
+            class="category-badge"
+          >
+            RETO
+          </span>
+
+          <span
+            id="reto-dificultad"
+            class="difficulty-badge"
+          >
+            Media
+          </span>
+
+        </div>
+
+
+        <h2 id="reto-pregunta">
+          Pregunta
+        </h2>
+
+
+        <div
+          id="reto-opciones"
+          class="options"
+        ></div>
+
+
+        <div
+          id="resultado-reto"
+          class="answer-result hidden"
+        ></div>
+
+
+        <button
+          id="btn-comprobar"
+          class="btn btn-primary"
+        >
+          COMPROBAR
+        </button>
+
+
+        <button
+          id="btn-continuar"
+          class="btn btn-secondary hidden"
+        >
+          CONTINUAR
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PANTALLA FINAL
+    ========================== -->
+    <section id="pantalla-final" class="pantalla">
+
+      <div class="hero-card final-card">
+
+        <div class="trophy">
+          ★
+        </div>
+
+        <p class="eyebrow">
+          PARTIDA TERMINADA
+        </p>
+
+        <h1>
+          ¡TENEMOS UN GANADOR!
+        </h1>
+
+        <p
+          id="ganador-nombre"
+          class="winner-name"
+        >
+          —
+        </p>
+
+        <p id="ganador-puntos">
+          — puntos algebraicos
+        </p>
+
+        <button
+          id="btn-nueva-partida"
+          class="btn btn-primary"
+        >
+          NUEVA PARTIDA
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
